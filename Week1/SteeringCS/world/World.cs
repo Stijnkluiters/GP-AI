@@ -16,6 +16,8 @@ namespace SteeringCS
         public int Width { get; set; }
         public int Height { get; set; }
 
+        public int UpdateBehaviourCounter = 0;
+
         public World(int w, int h)
         {
             Width = w;
@@ -36,12 +38,22 @@ namespace SteeringCS
 
         public void Update(float timeElapsed)
         {
+            if (UpdateBehaviourCounter > 200)
+            {
+                UpdateBehaviourCounter = 0;
+            }
+            Console.WriteLine(UpdateBehaviourCounter);
             foreach (MovingEntity me in entities)
             {
-                me.SB = new SeekBehaviour(me); // restore later
-
+                if(UpdateBehaviourCounter > 180) { 
+                    me.SB = new FleeBehaviour(me); // restore later
+                } else
+                {
+                    me.SB = new SeekBehaviour(me);
+                }
                 me.Update(timeElapsed);
-            }  
+            }
+            UpdateBehaviourCounter++;
         }
 
         public void Render(Graphics g)

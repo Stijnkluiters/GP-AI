@@ -14,10 +14,11 @@ namespace SteeringCS.behaviour
             this.target = this.ME.MyWorld.Target;
         }
         
-        // to do
+        // Flee Behaviour, opposite of seek
+        // Page: 92
         public override Vector2D Calculate()
         {
-            Vector2D DesiredVelocity = target.Pos.Clone().Sub(this.ME.Pos).Normalize();
+            Vector2D DesiredVelocity = this.ME.Pos.Clone().Sub(this.target.Pos).Normalize();
             DesiredVelocity.Multiply(this.ME.MaxSpeed);
 
             return DesiredVelocity.Sub(this.ME.Velocity);
