@@ -38,22 +38,36 @@ namespace SteeringCS
 
         public void Update(float timeElapsed)
         {
-            if (UpdateBehaviourCounter > 200)
-            {
-                UpdateBehaviourCounter = 0;
-            }
-            Console.WriteLine(UpdateBehaviourCounter);
+            //if (UpdateBehaviourCounter > 200)
+            //{
+            //    UpdateBehaviourCounter = 0;
+            //}
+            //Console.WriteLine(UpdateBehaviourCounter);
+            //foreach (MovingEntity me in entities)
+            //{
+            //    if(UpdateBehaviourCounter > 180) { 
+            //        me.SB = new FleeBehaviour(me); // restore later
+            //    } else
+            //    {
+            //        me.SB = new SeekBehaviour(me);
+            //    }
+            //    me.Update(timeElapsed);
+            //}
+            //UpdateBehaviourCounter++;
+
+
             foreach (MovingEntity me in entities)
             {
-                if(UpdateBehaviourCounter > 180) { 
-                    me.SB = new FleeBehaviour(me); // restore later
-                } else
+                if (me.Pos.Distance(this.Target.Pos) > 50)
                 {
-                    me.SB = new SeekBehaviour(me);
+                    me.SB = new SeekBehaviour(me); // restore later
+                }
+                else
+                {
+                    me.SB = new ArriveBehaviour(me);
                 }
                 me.Update(timeElapsed);
             }
-            UpdateBehaviourCounter++;
         }
 
         public void Render(Graphics g)

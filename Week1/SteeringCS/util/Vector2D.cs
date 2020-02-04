@@ -77,6 +77,15 @@ namespace SteeringCS
             }
             return this;
         }
+        /**
+         * Returns the distance from current position to the given target
+         */
+        public double Distance(Vector2D target)
+        {
+            Vector2D ToTarget = target.Clone().Sub(this);
+
+            return ToTarget.Length();
+        }
         
         public Vector2D Clone()
         {
