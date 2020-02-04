@@ -18,13 +18,12 @@ namespace SteeringCS.entity
         public MovingEntity(Vector2D pos, World w) : base(pos, w)
         {
             Mass = 30;
-            MaxSpeed = 150;
+            MaxSpeed = 50;
             Velocity = new Vector2D();
         }
 
         public override void Update(float timeElapsed)
         {
-            // to do
             // First step calculate steering force 
             Vector2D steeringForce = this.SB.Calculate();
             // Second step divide by the mass of the moving entity

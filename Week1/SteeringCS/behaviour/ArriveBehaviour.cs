@@ -27,8 +27,8 @@ namespace SteeringCS.behaviour
 
         public override Vector2D Calculate()
         {
-            Vector2D ToTarget = this.target.Pos.Clone().Sub(this.ME.Pos);
-
+            Vector2D ToTarget = this.target.Pos.Clone().Sub(this.ME.Pos.Clone());
+            Console.WriteLine(ToTarget);
             double distanceToTarget = ToTarget.Length();
 
             if(distanceToTarget > 0)
@@ -42,15 +42,15 @@ namespace SteeringCS.behaviour
                 // make sure the velocity does not exceed the maxspeed
                 speed = Math.Min(speed, this.ME.MaxSpeed);
 
-                Console.WriteLine("Current speed {0}", speed);
                 // from here proceed just like Seek except we don't need to normalize the ToTarget vector.
                 // Because we have already gone to the trouble of calculating its length: distanceToTarget
-                ToTarget.Divide(distanceToTarget);
                 ToTarget.Multiply(speed);
+                ToTarget.Divide(distanceToTarget);
                 
-                Vector2D DesiredVelocity = ToTarget.Clone();
+                
+                Vector2D DesiredVelocity = ToTarget;
 
-                return DesiredVelocity.Sub(this.ME.Pos);
+                return DesiredVelocity.Sub(this.ME.Velocity);
             }
 
             return new Vector2D(0, 0);
