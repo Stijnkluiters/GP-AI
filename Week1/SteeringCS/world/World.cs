@@ -12,6 +12,9 @@ namespace SteeringCS
     class World
     {
         private List<MovingEntity> entities = new List<MovingEntity>();
+
+        public List<ObstacleEntity> obstacles = new List<ObstacleEntity>();
+        
         public Vehicle Target { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
@@ -27,6 +30,9 @@ namespace SteeringCS
 
         private void populate()
         {
+            RoundObstacle roundObstacle = new RoundObstacle(new Vector2D(250, 250), this);
+            obstacles.Add(roundObstacle);
+
             Vehicle v = new Vehicle(new Vector2D(10,10), this);
             v.VColor = Color.Blue;
             entities.Add(v);
@@ -38,27 +44,10 @@ namespace SteeringCS
 
         public void Update(float timeElapsed)
         {
-            //if (UpdateBehaviourCounter > 200)
-            //{
-            //    UpdateBehaviourCounter = 0;
-            //}
-            //Console.WriteLine(UpdateBehaviourCounter);
-            //foreach (MovingEntity me in entities)
-            //{
-            //    if(UpdateBehaviourCounter > 180) { 
-            //        me.SB = new FleeBehaviour(me); // restore later
-            //    } else
-            //    {
-            //        me.SB = new SeekBehaviour(me);
-            //    }
-            //    me.Update(timeElapsed);
-            //}
-            //UpdateBehaviourCounter++;
-
-
             foreach (MovingEntity me in entities)
             {
-                if (me.Pos.Distance(this.Target.Pos) > 50)
+
+                if (me.Pos.Distance(this.Target.Pos) > 100)
                 {
                     me.SB = new SeekBehaviour(me); // restore later
                 }
@@ -73,6 +62,7 @@ namespace SteeringCS
         public void Render(Graphics g)
         {
             entities.ForEach(e => e.Render(g));
+            obstacles.ForEach(e => e.Render(g));
             Target.Render(g);
         }
     }

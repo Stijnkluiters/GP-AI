@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SteeringCS.behaviour;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace SteeringCS.entity
         {
             // First step calculate steering force 
             Vector2D steeringForce = this.SB.Calculate();
+
+            // If the ObstacleAvoidance returns something that is not null. overrule the steeringforce.
+            this.SB = new ObstacleAvoidance(this);
+            Vector2D _avoidance = this.SB.Calculate();
+            if(_avoidance != null)
+            {
+                steeringForce = _avoidance;
+            }
+
             // Second step divide by the mass of the moving entity
             Vector2D Acceleration = steeringForce.Divide(this.Mass);
             // add the acceleration to the velocity (multiply by timeElapsed)

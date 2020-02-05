@@ -22,7 +22,7 @@ namespace SteeringCS.behaviour
         public ArriveBehaviour(MovingEntity movingEntity) : base(movingEntity)
         {
             this.target = this.ME.MyWorld.Target;
-            this.deceleration = Deceleration.slow;
+            this.deceleration = Deceleration.fast;
         }
 
         public override Vector2D Calculate()

@@ -23,14 +23,22 @@ namespace SteeringCS
             Y = y;
         }
 
+        /**
+         * Just for clarivication
+         */
+        public double Speed()
+        {
+            return this.Length();
+        }
+
         public double Length()
         {
-            return Math.Sqrt(Math.Pow(this.X, 2) + Math.Pow(this.Y, 2));
+            return Math.Sqrt(this.LengthSquared());
         }
 
         public double LengthSquared()
         {
-            throw new NotImplementedException();
+            return (Math.Pow(this.X, 2) + Math.Pow(this.Y, 2));
         }   
 
         public Vector2D Add(Vector2D v)
